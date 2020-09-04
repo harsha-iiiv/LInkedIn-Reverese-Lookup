@@ -5,6 +5,19 @@
 <h2 align="center">LinkedIn-Reverese-Lookup</h2>
 <p align="center"><b>🔎Searching LinkedIn profile by email address📧</b></p>
 
+Sales Navigator is a sales tool, designed to allow sales teams to build and nurture customer relationships on LinkedIn. It was recently announced that as of March 2020 Sales Navigator would no longer function within Gmail, due to low usage. Whilst sales teams may not have been using Sales Navigator in its intended sense, OSINT practitioners were using it day-to-day when conducting people searching. 
+
+
+Until 08/04/2020, anyone with a LinkedIn account could manipulate a URL to give them the results of a Sales Navigator search for an email address, without having to pay for Sales Navigator. Simply changing the email address at the end of the URL, you could freely query LinkedIn for any email address, to identify if it was linked to a LinkedIn account. The query was as follows:
+
+
+https://www.linkedin.com/sales/gmail/profile/viewByEmail/harsha@gmail.com.
+
+
+However, instead of getting the expected result for your query, you are now met with a message stating "Something went wrong while displaying this profile. Please reload or try again later.". 
+
+Fortunately, there is another way to search LinkedIn by email address. Since 2017, Sales Navigator has been integrated with Outlook, as well as Gmail. Microsoft owns both Outlook and LinkedIn and a large number of corporations use Outlook for day-to-day activity, so it makes sense for Microsoft to integrate with Outlook rather than Gmail. 
+
 #### 🔎LinkedIn by email address.
 
 ### Installation Guide
