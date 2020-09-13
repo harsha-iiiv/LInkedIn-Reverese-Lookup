@@ -98,6 +98,7 @@ async function lilookup() {
       await page.waitFor(1000);
 
       try {
+        await page.setDefaultTimeout(9000);
         await page.waitForSelector('button[data-content="LinkedIn"]');
       } catch (error) {
         // do as you wish with this error and then do your next actions
@@ -136,7 +137,7 @@ async function lilookup() {
             body.Experience = ele.innerText;
           }
           let exp = document.evaluate(
-            '//*[@id="app"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[2]/section/div[2]/div[2]',
+            '//*[@id="app"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[2]/section/div[2]/div',
             document,
             null,
             XPathResult.FIRST_ORDERED_NODE_TYPE,
