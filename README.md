@@ -20,6 +20,8 @@ Fortunately, there is another way to search LinkedIn by email address. Since 201
 
 #### 🔎LinkedIn by email address.
 
+### Disclaimer :- I am not promoting any illegal activity here. This is purely for educational purpose . I am not responsible if you use it for illegal purpose or cross the linkedin terms and conditions .
+
 ### Installation Guide
 1. Open terminal on your PC.
 2. Clone the repo `git clone https://github.com/harsha-iiiv/LInkedIn-Reverese-Lookup.git`
