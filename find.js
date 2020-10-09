@@ -3,6 +3,7 @@ const keys = require("./keys");
 const puppeteer = require("puppeteer-extra");
 const StealthPlugin = require("puppeteer-extra-plugin-stealth");
 const perf = require("execution-time")();
+const isOnline = require('is-online');
 
 const {
   convertArrayToCSV
@@ -23,6 +24,14 @@ var profiles = [];
 indicate = "got all keys";
 console.log(indicate);
 async function lilookup() {
+  function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
+  }
+
   try {
     indicate = head ?
       "lauching browser headless(No GUI)" :
@@ -35,6 +44,11 @@ async function lilookup() {
         "--disable-setuid-sandbox",
         "--use-fake-ui-for-media-stream",
         "--disable-audio-output",
+        '--disable-infobars',
+        '--window-position=0,0',
+        '--ignore-certifcate-errors',
+        '--ignore-certifcate-errors-spki-list',
+        '--user-agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3312.0 Safari/537.36"'
       ],
     });
     page = await browser.newPage();
@@ -86,18 +100,24 @@ async function lilookup() {
     console.log("selecting linkedin tab");
     await page.click('button[data-content="LinkedIn"]');
 
-    // await page.waitFor(4000)
+    await page.waitFor(4000)
     perf.start();
     var i = 1;
     for (i = 1; i <= email_count; i++) {
       console.log("going to " + i + " contact");
-      await page.waitFor(1000);
-
+      await page.waitFor(5000);
+      var isOn = await isOnline()
+      if(isOn == false){
+        sleep(180000);
+        isOn = await isOnline()
+      }
+     
+      if(isOn){
       await page.waitForSelector('i[data-icon-name="Down"]');
       await page.click('i[data-icon-name="Down"]');
       console.log("wait for page load for 2 seconds");
 
-      await page.waitFor(1000);
+      await page.waitFor(5000);
       var mail = await page.evaluate(async () => {
         email = document.querySelector('[data-log-name="PersonName"]')
           .innerText;
@@ -123,7 +143,7 @@ async function lilookup() {
         waitUntil: ["load", "domcontentloaded", "networkidle0", "networkidle2"],
       });
 
-      // await page.waitFor(4000);
+      await page.waitFor(4000);
       // await page.waitForXPath('//*[@id="app"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[2]/section/div[2]/div[2]')
       // await page.waitForXPath('//*[@id="app"]/div/div[2]/div/div[2]/div/div[2]/div/div[2]/div/div/div/div/div[2]/section/div[2]/div')
       console.log("scrapping starts");
@@ -180,6 +200,10 @@ async function lilookup() {
           console.log(`saved ${i} contact profile successfully`);
         }
       );
+    }
+    else{
+      console.log("waiting for network connection")
+    }
     }
 
     console.log(profiles.length);
