@@ -89,12 +89,72 @@ async function lilookup() {
 
     console.log("inside contact list page");
     // await page.waitFor(6000)
-    await page.waitForSelector("div._3qxq4FbPD_ovy_o1o8-N4E");
-    console.log(
-      "selecting first(dummy) contact (make sure this is a dummy contact)"
-    );
-    await page.click("div._3qxq4FbPD_ovy_o1o8-N4E");
+    try {
+      await page.waitForSelector("div._2foTEDMhzh_Jsee7capEtt");
+      console.log(
+        "selecting first(dummy) contact (make sure this is a dummy contact)"
+      );
+      await page.click("div._2foTEDMhzh_Jsee7capEtt");
+      console.log('⚠ Deleting the existing contacts')
+      await page.waitFor(5000);
+      await page.click('[title="Toggle Left Pane"]')
+      console.log('Clicking on toggle left')
+      await page.waitFor(3000);
+      await page.waitForSelector('[title="Default folder for your saved contacts and contact lists"]');
+      await page.click('[title="Default folder for your saved contacts and contact lists"]')
+      console.log('Clicking on saved contact list')
+      await page.waitForSelector("div._2foTEDMhzh_Jsee7capEtt");
+      
+      await page.click("div._2foTEDMhzh_Jsee7capEtt");
+      await page.waitFor(3000);
+      await page.click('[data-icon-name="Cancel"]')
+      console.log('Selecting all contacts')
 
+      await page.click('[data-icon-name="StatusCircleCheckmark"]')
+      await page.waitFor(3000);
+      await page.click('[data-icon-name="Delete"]')
+      console.log('Deleting all contacts')
+      await page.waitFor(3000);
+      
+      await page.click('.ms-Button.ms-Button--primary')
+      await page.waitFor(5000);
+
+      await page.waitFor(2000);
+    } catch (error) {
+      // console.log(error);
+
+
+    }
+
+    try {
+      console.log("no contact found");
+      console.log('Uploading new contacts')
+      await page.waitFor('.ms-Button.ms-Button--action.ms-Button--command:last-child')
+      await page.evaluate(async ()=>{
+        document.querySelector('.ms-Button.ms-Button--action.ms-Button--command:last-child').click()
+      });
+
+      await page.waitForSelector('input[accept=".csv"]');
+      await page.waitFor(1000);
+      const inputUploadHandle = await page.$('input[accept=".csv"]');
+      let fileToUpload = "csvfiles\\Outlook_Contacts_-_Sheet1_0.csv";
+
+    // Sets the value of the file input to fileToUpload
+      inputUploadHandle.uploadFile(fileToUpload);
+      await page.waitForSelector('.ms-Button.ms-Button--primary')
+      await page.evaluate(async ()=>{
+        document.querySelector('.ms-Button.ms-Button--primary').click()
+      });
+      await page.waitFor(7000);
+      await page.waitForSelector('.ms-Button.ms-Button--primary')
+      await page.click('.ms-Button.ms-Button--primary')
+      await page.waitFor(2000);
+      await page.waitForSelector("div._2foTEDMhzh_Jsee7capEtt", {timeout: 5000});
+      await page.click("div._2foTEDMhzh_Jsee7capEtt");
+    } catch (error) {
+      console.log(error);
+    }
+    
     await page.waitForSelector('button[data-content="LinkedIn"]');
     // await page.waitFor(7000)
     console.log("selecting linkedin tab");
@@ -111,7 +171,6 @@ async function lilookup() {
         sleep(180000);
         isOn = await isOnline()
       }
-     
       if(isOn){
       await page.waitForSelector('i[data-icon-name="Down"]');
       await page.click('i[data-icon-name="Down"]');

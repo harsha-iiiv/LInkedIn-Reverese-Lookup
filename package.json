@@ -11,6 +11,7 @@
   "dependencies": {
     "convert-array-to-csv": "^2.0.0",
     "execution-time": "^1.4.1",
+    "is-online": "^9.0.1",
     "puppeteer": "^5.2.1",
     "puppeteer-extra": "^3.1.15",
     "puppeteer-extra-plugin-stealth": "^2.6.1"
