@@ -56,6 +56,6 @@ So here we are using `puppeteer-extra` and `puppeteer-extra-plugin-stealth` whic
 
 
 ---
-<p align="center"> Made with ❤️ by <a href="https://harshaa.ninja/">Harsha Surisetty</a></p>
+<p align="center"> Made with ❤️ by <a href="https://harsha.vercel.app/">Harsha Surisetty</a></p>
 
 
